@@ -43,26 +43,36 @@ st.set_page_config(
 # ─── Custom CSS ──────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
     :root {
-        --forest-dark: #0d1f0f;
-        --forest-mid: #1a3a1c;
-        --moss:  #2d5a27;
-        --fern:  #4a8c42;
-        --sage:  #7ab870;
-        --mist:  #b8d4b4;
-        --amber: #e8a830;
-        --danger:#c0392b;
-        --card-bg: rgba(255,255,255,0.04);
-        --border:  rgba(122,184,112,0.2);
+        --forest-dark:  #071409;
+        --forest-mid:   #0f2611;
+        --moss:         #1e4d1a;
+        --fern:         #2e7d32;
+        --sage:         #52a047;
+        --lime:         #76c442;
+        --mist:         #c8dfc2;
+        --amber:        #d4a017;
+        --danger:       #c0392b;
+        --glass-bg:     rgba(14, 38, 16, 0.55);
+        --glass-border: rgba(118, 196, 66, 0.18);
+        --card-bg:      rgba(11, 28, 12, 0.7);
+        --text-primary: #ddeedd;
+        --text-muted:   #7aaa72;
     }
 
-    html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
+    html, body, [class*="css"] {
+        font-family: 'Outfit', sans-serif;
+        -webkit-font-smoothing: antialiased;
+    }
 
     .stApp {
-        background: linear-gradient(160deg, #0d1f0f 0%, #1a3a1c 50%, #0a1a0c 100%);
-        color: #e0ead0;
+        background:
+            radial-gradient(ellipse 80% 60% at 10% 20%, rgba(30,77,26,0.25) 0%, transparent 60%),
+            radial-gradient(ellipse 60% 80% at 90% 80%, rgba(14,40,12,0.4) 0%, transparent 60%),
+            linear-gradient(175deg, #071409 0%, #0f2611 45%, #071409 100%);
+        color: var(--text-primary);
     }
 
     [data-testid="collapsedControl"] { display: none; }
@@ -72,122 +82,207 @@ st.markdown("""
 
     /* ── Hero ─────────────────────────────────────────────────────────── */
     .hero {
-        background: linear-gradient(135deg, rgba(45,90,39,0.5) 0%, rgba(13,31,15,0.9) 100%);
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        padding: 3rem 3.5rem;
-        margin-bottom: 2.5rem;
+        background:
+            linear-gradient(135deg, rgba(46, 125, 50, 0.12) 0%, rgba(7, 20, 9, 0.95) 60%),
+            linear-gradient(to bottom right, rgba(30,77,26,0.3), transparent);
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        padding: 3rem 3.5rem 2.8rem;
+        margin-bottom: 2rem;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 8px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(118,196,66,0.1);
     }
-    .hero::after {
-        content: '🌿';
-        position: absolute;
-        right: 3rem; top: 50%;
+    .hero-leaf {
+        position: absolute; right: 2.5rem; top: 50%;
         transform: translateY(-50%);
-        font-size: 7rem;
-        opacity: 0.12;
+        font-size: 6rem; opacity: 0.07; pointer-events: none;
+        animation: leafFloat 8s ease-in-out infinite;
+    }
+    @keyframes leafFloat {
+        0%, 100% { transform: translateY(-50%) rotate(-5deg); }
+        50%       { transform: translateY(-55%) rotate(3deg); }
     }
     .hero-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 2.8rem; font-weight: 700;
-        color: var(--mist); margin: 0 0 0.4rem 0; line-height: 1.2;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 3.2rem; font-weight: 700;
+        color: var(--mist); margin: 0 0 0.5rem; line-height: 1.15;
+        letter-spacing: -0.01em;
+        text-shadow: 0 2px 30px rgba(118,196,66,0.15);
     }
-    .hero-sub  { color: var(--sage); font-size: 1.05rem; font-weight: 300; letter-spacing: 0.03em; }
+    .hero-sub {
+        color: var(--text-muted); font-size: 1rem; font-weight: 300;
+        letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .hero-badges { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .hero-badge {
-        display: inline-block;
-        background: rgba(74,140,66,0.2);
-        border: 1px solid rgba(122,184,112,0.4);
-        border-radius: 20px;
-        padding: 0.2rem 0.9rem;
-        font-size: 0.78rem; color: var(--sage);
-        margin-top: 1rem; margin-right: 0.5rem;
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        background: rgba(46,125,50,0.15);
+        border: 1px solid rgba(118,196,66,0.25);
+        border-radius: 100px;
+        padding: 0.3rem 1rem;
+        font-size: 0.76rem; font-weight: 500;
+        color: var(--lime); letter-spacing: 0.04em;
     }
 
     /* ── Step panels ──────────────────────────────────────────────────── */
     .step-panel {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 1.2rem 1.8rem 0.4rem 1.8rem;
-        margin-bottom: 0.8rem;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        padding: 1.3rem 1.8rem 0.6rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+        position: relative; overflow: hidden;
     }
-    .step-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+    .step-panel::before {
+        content: ''; position: absolute;
+        left: 0; top: 0; bottom: 0; width: 3px;
+        background: linear-gradient(to bottom, var(--sage), transparent);
+        border-radius: 16px 0 0 16px;
+    }
+    .step-header { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 0.6rem; }
     .step-number {
-        background: linear-gradient(135deg, var(--moss), var(--fern));
+        background: linear-gradient(135deg, var(--fern), var(--lime));
         color: white;
-        font-family: 'Playfair Display', serif;
+        font-family: 'Cormorant Garamond', serif;
         font-size: 1rem; font-weight: 700;
-        width: 32px; height: 32px;
-        border-radius: 50%;
+        width: 34px; height: 34px; border-radius: 50%;
         display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        box-shadow: 0 0 16px rgba(82,160,71,0.4);
     }
-    .step-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--mist); margin: 0; }
+    .step-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.3rem; font-weight: 600;
+        color: var(--mist); margin: 0; letter-spacing: 0.01em;
+    }
 
-    .fancy-divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+    .fancy-divider {
+        border: none; height: 1px;
+        background: linear-gradient(to right, transparent, var(--glass-border), transparent);
+        margin: 2rem 0;
+    }
 
     .section-heading {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.5rem; color: var(--mist); margin: 0 0 1.2rem 0;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.65rem; font-weight: 600;
+        color: var(--mist); margin: 0 0 1.2rem; letter-spacing: 0.01em;
     }
 
     /* ── AI output box ────────────────────────────────────────────────── */
     .ai-output {
-        background: rgba(13,31,15,0.7);
-        border-left: 3px solid var(--fern);
-        border-radius: 0 10px 10px 0;
-        padding: 1.4rem 1.6rem;
-        font-size: 0.95rem; line-height: 1.8;
-        color: #d0e0c8; white-space: pre-wrap;
+        background: rgba(7,20,9,0.8);
+        border: 1px solid var(--glass-border);
+        border-left: 3px solid var(--sage);
+        border-radius: 0 14px 14px 0;
+        padding: 1.6rem 1.8rem;
+        font-size: 0.92rem; line-height: 1.85;
+        color: #c8ddc0; white-space: pre-wrap;
+        font-family: 'Outfit', sans-serif;
+        box-shadow: inset 0 0 40px rgba(0,0,0,0.3);
     }
 
     .status-ok {
-        background: rgba(45,90,39,0.3);
-        border: 1px solid #4a8c42;
-        border-radius: 8px;
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem; color: #7ab870;
-        display: inline-block; margin-bottom: 1rem;
+        background: rgba(30,77,26,0.35);
+        border: 1px solid rgba(82,160,71,0.45);
+        border-radius: 100px;
+        padding: 0.45rem 1.2rem;
+        font-size: 0.83rem; color: var(--lime);
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        margin-bottom: 1rem;
     }
 
     /* ── Buttons ──────────────────────────────────────────────────────── */
     .stButton > button {
-        background: linear-gradient(135deg, var(--moss), var(--fern));
-        color: white !important; border: none;
-        border-radius: 10px;
-        font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 1rem;
-        padding: 0.65rem 1.6rem;
-        transition: all 0.2s ease; width: 100%;
+        background: linear-gradient(135deg, var(--moss) 0%, var(--fern) 60%, var(--sage) 100%);
+        color: #e8f5e2 !important;
+        border: 1px solid rgba(118,196,66,0.3) !important;
+        border-radius: 12px;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 500; font-size: 0.95rem;
+        padding: 0.7rem 1.6rem;
+        transition: all 0.25s;
+        width: 100%; letter-spacing: 0.02em;
+        box-shadow: 0 4px 15px rgba(46,125,50,0.25);
     }
     .stButton > button:hover {
-        background: linear-gradient(135deg, var(--fern), var(--sage));
-        transform: translateY(-1px);
-        box-shadow: 0 6px 20px rgba(74,140,66,0.35);
+        background: linear-gradient(135deg, var(--fern) 0%, var(--sage) 60%, var(--lime) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 28px rgba(46,125,50,0.4);
     }
-    .stButton > button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .stButton > button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    [data-testid="stDownloadButton"] > button {
+        background: linear-gradient(135deg, #1a3a1c, #2a5c2a) !important;
+        border: 1px solid rgba(118,196,66,0.35) !important;
+        color: #a8d4a0 !important; border-radius: 12px !important;
+        font-family: 'Outfit', sans-serif !important;
+        font-weight: 500 !important; transition: all 0.25s !important;
+    }
+    [data-testid="stDownloadButton"] > button:hover {
+        background: linear-gradient(135deg, #2a5c2a, #3a7a3a) !important;
+        transform: translateY(-1px) !important;
+    }
 
     /* ── Tabs ─────────────────────────────────────────────────────────── */
     .stTabs [data-baseweb="tab-list"] {
-        background: rgba(13,31,15,0.6);
-        border-radius: 10px; gap: 4px; padding: 4px;
+        background: rgba(7,20,9,0.7);
+        border: 1px solid var(--glass-border);
+        border-radius: 12px; gap: 3px; padding: 4px;
+        box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
     }
-    .stTabs [data-baseweb="tab"]  { color: var(--mist); border-radius: 7px; }
-    .stTabs [aria-selected="true"] { background: var(--moss) !important; color: white !important; }
+    .stTabs [data-baseweb="tab"] {
+        color: var(--text-muted); border-radius: 9px;
+        font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 500;
+    }
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, var(--moss), var(--fern)) !important;
+        color: #e8f5e2 !important;
+        box-shadow: 0 2px 10px rgba(46,125,50,0.3);
+    }
 
     [data-testid="stFileUploader"] {
-        border: 2px dashed var(--border);
-        border-radius: 10px;
-        background: rgba(45,90,39,0.06);
+        border: 2px dashed rgba(82,160,71,0.25);
+        border-radius: 14px;
+        background: rgba(14,38,16,0.3);
     }
     div[data-testid="stExpander"] {
         background: var(--card-bg);
-        border: 1px solid var(--border); border-radius: 10px;
+        border: 1px solid var(--glass-border); border-radius: 12px;
     }
     [data-testid="stMetric"] {
-        background: rgba(45,90,39,0.2);
-        border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 1rem;
+        background: linear-gradient(135deg, rgba(30,77,26,0.25), rgba(7,20,9,0.6));
+        border: 1px solid var(--glass-border);
+        border-radius: 14px; padding: 1rem 1.2rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
     }
-    ::-webkit-scrollbar { width: 6px; }
+    [data-testid="stMetricLabel"] { color: var(--text-muted) !important; font-size: 0.8rem !important; text-transform: uppercase; letter-spacing: 0.06em; }
+    [data-testid="stMetricValue"] { color: var(--lime) !important; font-family: 'Cormorant Garamond', serif !important; font-size: 2rem !important; }
+
+    .empty-state {
+        text-align: center; padding: 4rem 2rem;
+        background: linear-gradient(135deg, rgba(7,20,9,0.6), rgba(14,38,16,0.4));
+        border: 1px dashed rgba(82,160,71,0.2);
+        border-radius: 20px; margin-top: 0.5rem;
+    }
+    .empty-icon { font-size: 4.5rem; margin-bottom: 1rem; }
+    .empty-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--mist); margin-bottom: 0.8rem; font-weight: 600; }
+    .empty-sub { color: var(--text-muted); max-width: 440px; margin: 0 auto; line-height: 1.9; font-size: 0.95rem; }
+
+    code {
+        font-family: 'JetBrains Mono', monospace !important;
+        background: rgba(30,77,26,0.25) !important;
+        border: 1px solid rgba(82,160,71,0.2) !important;
+        border-radius: 5px !important;
+        padding: 0.1em 0.45em !important;
+        font-size: 0.85em !important;
+        color: var(--lime) !important;
+    }
+
+    .stProgress > div > div > div { background: linear-gradient(90deg, var(--fern), var(--lime)) !important; border-radius: 4px; }
+    .stCaption { color: rgba(122,170,114,0.65) !important; font-size: 0.78rem !important; }
+
+    ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--forest-dark); }
     ::-webkit-scrollbar-thumb { background: var(--moss); border-radius: 3px; }
 </style>
@@ -206,6 +301,8 @@ def init_session_state():
         "grok_client": None,
         "api_key_valid": False,
         "show_heatmap": False,
+        "_pdf_bytes": None,
+        "_pdf_filename": "conservation_report.pdf",
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -528,58 +625,275 @@ def build_matplotlib_chart(df):
         plt.close(); return None
 
 
+import re as _re
+
+def _clean_latin1(s: str) -> str:
+    """Final pass: drop anything that can't be encoded as latin-1."""
+    return s.encode("latin-1", errors="ignore").decode("latin-1")
+
+
+def _parse_markdown_blocks(text: str):
+    """
+    Convert raw AI markdown text into a list of typed blocks:
+      ("h1", text), ("h2", text), ("h3", text),
+      ("bullet", text), ("numbered", text), ("body", text), ("blank",)
+    Each block's text has markdown syntax already stripped.
+    """
+    blocks = []
+    for raw_line in text.splitlines():
+        line = raw_line.rstrip()
+
+        # ── Strip inline markdown formatting ────────────────────────────────
+        line = _re.sub(r"\*\*\*(.+?)\*\*\*", r"\1", line)   # ***bold-italic***
+        line = _re.sub(r"\*\*(.+?)\*\*",     r"\1", line)   # **bold**
+        line = _re.sub(r"\*(.+?)\*",         r"\1", line)   # *italic*
+        line = _re.sub(r"`(.+?)`",           r"\1", line)   # `code`
+        line = _re.sub(r"_{1,2}(.+?)_{1,2}", r"\1", line)   # _italic_ / __bold__
+
+        # ── Unicode → ASCII ──────────────────────────────────────────────────
+        replacements = {
+            "\u2014": "--", "\u2013": "-",
+            "\u2018": "'",  "\u2019": "'",
+            "\u201c": '"',  "\u201d": '"',
+            "\u2022": "-",  "\u2023": "-",  "\u25cf": "-",  "\u25aa": "-",
+            "\u2192": "->", "\u2190": "<-",
+            "\u2605": "*",  "\u2713": "[v]",
+            "\u00b0": " degrees", "\u00b1": "+/-",
+        }
+        for u, a in replacements.items():
+            line = line.replace(u, a)
+
+        # Drop remaining non-latin-1 (emojis etc.)
+        line = _clean_latin1(line)
+
+        stripped = line.strip()
+        if stripped == "":
+            blocks.append(("blank",))
+            continue
+
+        # ── Headings ─────────────────────────────────────────────────────────
+        m = _re.match(r"^(#{1,3})\s+(.*)", stripped)
+        if m:
+            level = len(m.group(1))
+            htext = _clean_latin1(m.group(2).strip())
+            blocks.append((f"h{level}", htext))
+            continue
+
+        # ── Numbered list  (e.g. "1. " or "1) ") ────────────────────────────
+        m = _re.match(r"^\d+[.)]\s+(.*)", stripped)
+        if m:
+            blocks.append(("numbered", _clean_latin1(m.group(1).strip())))
+            continue
+
+        # ── Bullet list  (-, *, +, or •) ─────────────────────────────────────
+        m = _re.match(r"^[-*+\u2022]\s+(.*)", stripped)
+        if m:
+            blocks.append(("bullet", _clean_latin1(m.group(1).strip())))
+            continue
+
+        # ── Plain body ────────────────────────────────────────────────────────
+        blocks.append(("body", _clean_latin1(stripped)))
+
+    return blocks
+
+
 def generate_pdf_report(df, analysis, recommendations, changes):
-    """Formatted A4 PDF via fpdf2."""
+    """
+    Formatted A4 PDF via fpdf2.
+    - Explicit CONTENT_W on every cell / multi_cell call (never w=0)
+    - Header/footer use absolute positioning so they never corrupt the cursor
+    - Markdown is parsed into typed blocks: headings, bullets, numbered, body
+    - multi_cell always called with new_x='LMARGIN', new_y='NEXT' (fpdf2 >= 2.7)
+      with a fallback for older versions
+    """
+    PAGE_W    = 210
+    L_MARGIN  = 15
+    R_MARGIN  = 15
+    T_MARGIN  = 26   # must be > header band height (20 mm)
+    B_MARGIN  = 20
+    CONTENT_W = PAGE_W - L_MARGIN - R_MARGIN   # 180 mm — always explicit
+
+    # Detect fpdf2 >= 2.7 (supports new_x / new_y kwargs on multi_cell)
+    import fpdf as _fpdf_mod
+    _fpdf_ver = tuple(int(x) for x in getattr(_fpdf_mod, "__version__", "2.0").split(".")[:2])
+    _new_xy_supported = _fpdf_ver >= (2, 7)
+
+    def _write_multicell(pdf_obj, w, h, txt):
+        """Wrapper so multi_cell always resets cursor to left margin after call."""
+        if _new_xy_supported:
+            try:
+                pdf_obj.multi_cell(w, h, txt, new_x="LMARGIN", new_y="NEXT")
+                return
+            except TypeError:
+                pass
+        # Fallback for older fpdf2: manual cursor reset
+        pdf_obj.multi_cell(w, h, txt)
+        pdf_obj.set_x(L_MARGIN)
+
+    error_detail = ""
     try:
         class PDF(FPDF):
             def header(self):
-                self.set_fill_color(13, 31, 15); self.rect(0, 0, 210, 20, "F")
-                self.set_font("Helvetica", "B", 13); self.set_text_color(184, 212, 180)
-                self.cell(0, 18, "  Conservation Report Generator", ln=True)
+                # Absolute-positioned header band — never touches the content cursor
+                self.set_fill_color(13, 31, 15)
+                self.rect(0, 0, PAGE_W, 20, "F")
+                self.set_xy(L_MARGIN, 4)
+                self.set_font("Helvetica", "B", 12)
+                self.set_text_color(184, 212, 180)
+                self.cell(CONTENT_W, 12, "  Conservation Report Generator", border=0)
+                # Always reset to top of content area
+                self.set_xy(L_MARGIN, T_MARGIN)
+
             def footer(self):
-                self.set_y(-15); self.set_font("Helvetica", "I", 8); self.set_text_color(120, 140, 120)
-                self.cell(0, 10, f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}  |  Page {self.page_no()}", align="C")
+                self.set_y(-14)
+                self.set_font("Helvetica", "I", 8)
+                self.set_text_color(100, 130, 100)
+                self.cell(
+                    CONTENT_W, 8,
+                    _clean_latin1(
+                        f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}"
+                        f"  |  Page {self.page_no()}"
+                    ),
+                    align="C", border=0,
+                )
 
         pdf = PDF(orientation="P", unit="mm", format="A4")
-        pdf.set_auto_page_break(auto=True, margin=18); pdf.set_margins(18, 22, 18); pdf.add_page()
+        pdf.set_margins(L_MARGIN, T_MARGIN, R_MARGIN)
+        pdf.set_auto_page_break(auto=True, margin=B_MARGIN)
+        pdf.add_page()                                   # header() fires here
 
-        pdf.set_font("Helvetica", "B", 22); pdf.set_text_color(74, 140, 66); pdf.ln(10)
-        pdf.cell(0, 12, "Conservation Analysis Report", ln=True, align="C")
-        pdf.set_font("Helvetica", "", 11); pdf.set_text_color(100, 130, 100)
-        pdf.cell(0, 8, datetime.now().strftime("%B %d, %Y"), ln=True, align="C"); pdf.ln(8)
+        # ── Cover / overview ──────────────────────────────────────────────────
+        pdf.ln(4)
+        pdf.set_font("Helvetica", "B", 22)
+        pdf.set_text_color(52, 120, 46)
+        pdf.cell(CONTENT_W, 12, "Conservation Analysis Report", ln=True, align="C")
 
-        pdf.set_font("Helvetica", "B", 12); pdf.set_text_color(45, 90, 39)
-        pdf.cell(0, 9, "Dataset Overview", ln=True)
-        pdf.set_font("Helvetica", "", 10); pdf.set_text_color(40, 60, 40)
-        pdf.cell(0, 7, f"Total Observations: {len(df):,}", ln=True)
-        pdf.cell(0, 7, f"Columns: {', '.join(df.columns[:8].tolist())}{'...' if len(df.columns)>8 else ''}", ln=True)
+        pdf.set_font("Helvetica", "", 11)
+        pdf.set_text_color(80, 110, 80)
+        pdf.cell(CONTENT_W, 8, _clean_latin1(datetime.now().strftime("%B %d, %Y")), ln=True, align="C")
         pdf.ln(5)
 
-        def add_section(title, content):
-            pdf.set_font("Helvetica", "B", 13); pdf.set_text_color(45, 90, 39)
-            pdf.cell(0, 10, title, ln=True)
-            pdf.set_draw_color(74, 140, 66); pdf.set_line_width(0.4)
-            pdf.line(18, pdf.get_y(), 192, pdf.get_y()); pdf.ln(3)
-            pdf.set_font("Helvetica", "", 9); pdf.set_text_color(30, 50, 30)
-            pdf.multi_cell(0, 5.5, content.replace("**","").replace("##","").replace("*","-"))
-            pdf.ln(6)
+        pdf.set_draw_color(74, 140, 66)
+        pdf.set_line_width(0.5)
+        pdf.line(L_MARGIN, pdf.get_y(), L_MARGIN + CONTENT_W, pdf.get_y())
+        pdf.ln(5)
 
-        if analysis:      pdf.add_page(); add_section("Conservation Analysis",        analysis)
-        if recommendations: pdf.add_page(); add_section("Protection Recommendations", recommendations)
-        if changes:       pdf.add_page(); add_section("What Changed — Trend Summary", changes)
+        pdf.set_font("Helvetica", "B", 11)
+        pdf.set_text_color(45, 90, 39)
+        pdf.cell(CONTENT_W, 8, "Dataset Overview", ln=True)
 
+        pdf.set_font("Helvetica", "", 10)
+        pdf.set_text_color(30, 50, 30)
+        pdf.cell(CONTENT_W, 7, f"Total Observations: {len(df):,}", ln=True)
+
+        cols_list = df.columns[:8].tolist()
+        cols_str  = _clean_latin1(", ".join(cols_list) + ("..." if len(df.columns) > 8 else ""))
+        _write_multicell(pdf, CONTENT_W, 6, f"Columns: {cols_str}")
+        pdf.ln(3)
+
+        # ── Section renderer ──────────────────────────────────────────────────
+        def add_section(title: str, content: str):
+            # Section heading
+            pdf.set_font("Helvetica", "B", 14)
+            pdf.set_text_color(45, 90, 39)
+            pdf.cell(CONTENT_W, 10, _clean_latin1(title), ln=True)
+
+            # Green underline
+            pdf.set_draw_color(74, 140, 66)
+            pdf.set_line_width(0.5)
+            pdf.line(L_MARGIN, pdf.get_y(), L_MARGIN + CONTENT_W, pdf.get_y())
+            pdf.ln(4)
+
+            blocks = _parse_markdown_blocks(content)
+
+            for block in blocks:
+                kind = block[0]
+
+                if kind == "blank":
+                    pdf.ln(2)
+
+                elif kind in ("h1", "h2", "h3"):
+                    sizes   = {"h1": 12, "h2": 11, "h3": 10}
+                    indents = {"h1": 0,  "h2": 3,  "h3": 6}
+                    pdf.ln(3)
+                    pdf.set_x(L_MARGIN + indents[kind])
+                    pdf.set_font("Helvetica", "B", sizes[kind])
+                    pdf.set_text_color(46, 100, 40)
+                    _write_multicell(pdf, CONTENT_W - indents[kind], 6, block[1])
+                    pdf.ln(1)
+
+                elif kind == "numbered":
+                    pdf.set_x(L_MARGIN + 4)
+                    pdf.set_font("Helvetica", "", 9)
+                    pdf.set_text_color(20, 40, 20)
+                    # Write number indicator then text, indented
+                    _write_multicell(pdf, CONTENT_W - 4, 5.5, "  " + block[1])
+
+                elif kind == "bullet":
+                    pdf.set_x(L_MARGIN + 4)
+                    pdf.set_font("Helvetica", "", 9)
+                    pdf.set_text_color(20, 40, 20)
+                    _write_multicell(pdf, CONTENT_W - 4, 5.5, "- " + block[1])
+
+                else:  # "body"
+                    pdf.set_x(L_MARGIN)
+                    pdf.set_font("Helvetica", "", 9)
+                    pdf.set_text_color(20, 40, 20)
+                    _write_multicell(pdf, CONTENT_W, 5.5, block[1])
+
+            pdf.ln(4)
+
+        # ── Render each AI section on its own page ────────────────────────────
+        if analysis:
+            pdf.add_page()
+            add_section("Conservation Analysis", analysis)
+        if recommendations:
+            pdf.add_page()
+            add_section("Protection Recommendations", recommendations)
+        if changes:
+            pdf.add_page()
+            add_section("What Changed  --  Trend Summary", changes)
+
+        # ── Chart page ────────────────────────────────────────────────────────
         chart_bytes = build_matplotlib_chart(df)
         if chart_bytes:
             pdf.add_page()
-            pdf.set_font("Helvetica", "B", 13); pdf.set_text_color(45, 90, 39)
-            pdf.cell(0, 10, "Species Distribution Chart", ln=True)
+            pdf.set_font("Helvetica", "B", 13)
+            pdf.set_text_color(45, 90, 39)
+            pdf.cell(CONTENT_W, 10, "Species Distribution Chart", ln=True)
+            pdf.set_draw_color(74, 140, 66)
+            pdf.set_line_width(0.5)
+            pdf.line(L_MARGIN, pdf.get_y(), L_MARGIN + CONTENT_W, pdf.get_y())
+            pdf.ln(4)
             with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp:
-                tmp.write(chart_bytes); tmp_path = tmp.name
-            pdf.image(tmp_path, x=18, w=174); os.unlink(tmp_path)
+                tmp.write(chart_bytes)
+                tmp_path = tmp.name
+            try:
+                pdf.image(tmp_path, x=L_MARGIN, w=CONTENT_W)
+            finally:
+                os.unlink(tmp_path)
 
-        return bytes(pdf.output())
+        raw = pdf.output()
+        return bytes(raw) if not isinstance(raw, bytes) else raw
+
     except Exception as e:
-        return b""
+        error_detail = str(e)
+        # Plain fallback PDF — no custom header/footer, default margins
+        try:
+            err_pdf = FPDF()
+            err_pdf.set_margins(15, 20, 15)
+            err_pdf.set_auto_page_break(auto=True, margin=15)
+            err_pdf.add_page()
+            err_pdf.set_font("Helvetica", "B", 13)
+            err_pdf.set_text_color(180, 40, 40)
+            err_pdf.cell(180, 10, "PDF Generation Error", ln=True)
+            err_pdf.set_font("Helvetica", "", 9)
+            err_pdf.set_text_color(30, 30, 30)
+            err_pdf.multi_cell(180, 5.5, _clean_latin1(f"Error: {error_detail[:600]}"))
+            raw = err_pdf.output()
+            return bytes(raw) if not isinstance(raw, bytes) else raw
+        except Exception:
+            return b""
 
 
 # ─── Auto-init Grok on startup ────────────────────────────────────────────────
@@ -598,13 +912,14 @@ if not st.session_state.api_key_valid and GROK_API_KEY not in ("YOUR_GROQ_API_KE
 # ── Hero ──────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="hero">
+    <div class="hero-leaf">🌿</div>
     <div class="hero-title">🌿 Conservation Report Generator</div>
-    <div class="hero-sub">Multimodal AI · Geospatial Analysis · Ecological Intelligence</div>
-    <div style="margin-top:1rem">
-        <span class="hero-badge">Groq AI (Free)</span>
-        <span class="hero-badge">Folium Maps</span>
-        <span class="hero-badge">Plotly Charts</span>
-        <span class="hero-badge">PDF Export</span>
+    <div class="hero-sub">Multimodal AI &nbsp;·&nbsp; Geospatial Analysis &nbsp;·&nbsp; Ecological Intelligence</div>
+    <div class="hero-badges">
+        <span class="hero-badge">⚡ Groq AI (Free)</span>
+        <span class="hero-badge">🗺 Folium Maps</span>
+        <span class="hero-badge">📊 Plotly Charts</span>
+        <span class="hero-badge">📄 PDF Export</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -664,9 +979,8 @@ with col_upload:
 
 with col_info:
     st.markdown("""
-    <div style="background:rgba(45,90,39,0.15);border:1px solid var(--border);
-                border-radius:10px;padding:1rem 1.2rem;font-size:0.85rem;color:#b8d4b4;line-height:1.9">
-        <b style="color:#7ab870">📋 Expected Columns</b><br>
+    <div class="info-card" style="background:linear-gradient(135deg,rgba(14,38,16,0.7),rgba(7,20,9,0.85));border:1px solid rgba(118,196,66,0.18);border-radius:14px;padding:1.2rem 1.5rem;font-size:0.85rem;color:#c8dfc2;line-height:2;box-shadow:0 4px 20px rgba(0,0,0,0.25);">
+        <b style="color:#76c442;">📋 Expected Columns</b><br>
         <code>latitude</code> &nbsp;·&nbsp; <code>longitude</code><br>
         <code>species</code> &nbsp;·&nbsp; <code>count</code><br>
         <code>date</code> &nbsp;·&nbsp; <code>risk_level</code><br>
@@ -911,9 +1225,16 @@ if df is not None:
         st.markdown("<hr class='fancy-divider'>", unsafe_allow_html=True)
         st.markdown('<p class="section-heading">📄 Export Report</p>', unsafe_allow_html=True)
 
+        st.markdown("""
+        <div style="background:linear-gradient(135deg,rgba(14,38,16,0.55),rgba(7,20,9,0.8));
+                    border:1px solid rgba(118,196,66,0.18);border-radius:16px;
+                    padding:1.6rem 2rem;box-shadow:0 4px 24px rgba(0,0,0,0.3);margin-bottom:1rem;">
+        """, unsafe_allow_html=True)
+
         ex1, ex2 = st.columns([1, 2], gap="large")
         with ex1:
-            if st.button("📥 Build PDF Report", use_container_width=True):
+            build_clicked = st.button("📥 Build PDF Report", use_container_width=True)
+            if build_clicked:
                 with st.spinner("Assembling PDF…"):
                     pdf_bytes = generate_pdf_report(
                         df,
@@ -922,28 +1243,36 @@ if df is not None:
                         st.session_state.change_summary_text,
                     )
                 if pdf_bytes:
-                    st.download_button(
-                        "⬇️ Download PDF", data=pdf_bytes,
-                        file_name=f"conservation_report_{datetime.now().strftime('%Y%m%d_%H%M')}.pdf",
-                        mime="application/pdf", use_container_width=True,
-                    )
+                    st.session_state["_pdf_bytes"] = pdf_bytes
+                    st.session_state["_pdf_filename"] = f"conservation_report_{datetime.now().strftime('%Y%m%d_%H%M')}.pdf"
                 else:
-                    st.error(f"PDF generation failed. Try restarting the app: `streamlit run app.py`")
+                    st.error("PDF generation failed. Try restarting the app: `streamlit run app.py`")
+
+            # Always show the download button once PDF has been built
+            if st.session_state.get("_pdf_bytes"):
+                st.download_button(
+                    "⬇️ Download PDF",
+                    data=st.session_state["_pdf_bytes"],
+                    file_name=st.session_state.get("_pdf_filename", "conservation_report.pdf"),
+                    mime="application/pdf",
+                    use_container_width=True,
+                )
+
         with ex2:
             st.caption(
                 "Generates a formatted A4 PDF with AI conservation analysis, "
-                "protection recommendations, ecosystem change summary, and species chart."
+                "protection recommendations, ecosystem change summary, and species chart. "
+                "Click **Build PDF Report** first, then **Download PDF**."
             )
+
+        st.markdown("</div>", unsafe_allow_html=True)
 
 else:
     st.markdown("""
-    <div style="text-align:center;padding:3rem 2rem;background:rgba(255,255,255,0.02);
-                border:1px dashed var(--border);border-radius:14px;margin-top:0.5rem">
-        <div style="font-size:4rem;margin-bottom:1rem">🌳</div>
-        <div style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--mist);margin-bottom:0.8rem">
-            Results will appear here
-        </div>
-        <p style="color:#7ab870;max-width:480px;margin:0 auto;line-height:1.8;font-size:0.95rem">
+    <div class="empty-state">
+        <div class="empty-icon">🌳</div>
+        <div class="empty-title">Results will appear here</div>
+        <p class="empty-sub">
             Complete Steps 1–3 above to see the interactive map, population charts,
             and AI-generated conservation insights.
         </p>
