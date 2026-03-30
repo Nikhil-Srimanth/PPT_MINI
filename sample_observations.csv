@@ -1,0 +1,8 @@
+latitude,longitude,species,count,date,risk_level,habitat,observer
+17.385,78.486,Bengal Tiger,3,2024-01-15,High,Forest,Team A
+17.39,78.49,Indian Elephant,12,2024-02-10,Medium,Wetland,Team B
+17.38,78.48,Indian Leopard,5,2024-01-20,High,Forest,Team A
+17.4,78.5,Sloth Bear,8,2024-03-05,Low,Scrubland,Team C
+17.37,78.47,Bengal Tiger,2,2024-04-01,Critical,Forest,Team A
+17.41,78.51,Indian Elephant,15,2024-02-25,Medium,Grassland,Team B
+17.36,78.46,Indian Leopard,4,2024-03-18,High,Forest,Team C

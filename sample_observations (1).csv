@@ -1,0 +1,31 @@
+latitude,longitude,species,count,date,risk_level,habitat,observer,notes
+17.385,78.486,Bengal Tiger,3,2024-01-15,High,Forest,Team A,Fresh pugmarks near water source
+17.390,78.490,Indian Elephant,12,2024-01-20,Medium,Wetland,Team B,Herd with 3 calves spotted
+17.380,78.480,Indian Leopard,5,2024-02-01,High,Forest,Team A,Camera trap images captured
+17.400,78.500,Sloth Bear,8,2024-02-10,Low,Scrubland,Team C,Foraging near termite mounds
+17.370,78.470,Bengal Tiger,2,2024-02-15,Critical,Forest,Team A,Signs of territory conflict
+17.410,78.510,Indian Elephant,15,2024-02-25,Medium,Grassland,Team B,Crop raiding reported nearby
+17.360,78.460,Indian Leopard,4,2024-03-01,High,Forest,Team C,Possible human conflict zone
+17.395,78.495,Indian Gaur,20,2024-03-05,Low,Grassland,Team B,Healthy herd, no threats observed
+17.375,78.475,Sambar Deer,35,2024-03-10,Low,Forest,Team A,Large population, good indicator
+17.405,78.505,Wild Boar,18,2024-03-15,Low,Scrubland,Team C,Possible invasive pressure on crops
+17.365,78.465,Bengal Tiger,1,2024-03-18,Critical,Forest,Team A,Injured individual - needs monitoring
+17.415,78.515,Indian Elephant,9,2024-03-22,Medium,Wetland,Team B,Seasonal migration corridor
+17.385,78.485,Chital Deer,42,2024-04-01,Low,Grassland,Team C,Prey base stable for predators
+17.392,78.492,Indian Leopard,3,2024-04-05,High,Forest,Team A,Poaching snare found nearby
+17.378,78.478,Sloth Bear,6,2024-04-10,Medium,Forest,Team B,Habitat fragmentation observed
+17.402,78.502,Indian Gaur,14,2024-04-15,Low,Grassland,Team C,Breeding season activity
+17.368,78.468,Bengal Tiger,4,2024-04-20,High,Forest,Team A,Three cubs spotted with mother
+17.412,78.512,Indian Elephant,11,2024-04-25,Medium,Wetland,Team B,Water hole dependency increasing
+17.382,78.482,Sambar Deer,28,2024-05-01,Low,Forest,Team C,Population stable
+17.398,78.498,Wild Boar,22,2024-05-05,Low,Scrubland,Team A,Increasing crop conflict reports
+17.372,78.472,Indian Leopard,6,2024-05-10,High,Forest,Team B,Habitat corridor under threat
+17.408,78.508,Bengal Tiger,2,2024-05-15,Critical,Forest,Team C,Territorial male, avoid area
+17.388,78.488,Chital Deer,55,2024-05-20,Low,Grassland,Team A,Peak population count
+17.376,78.476,Indian Elephant,8,2024-05-25,Medium,Forest,Team B,Bull elephant isolated
+17.396,78.496,Sloth Bear,10,2024-06-01,Low,Scrubland,Team C,Healthy foraging behavior
+17.366,78.466,Indian Gaur,17,2024-06-05,Low,Grassland,Team A,Mixed age group sighted
+17.416,78.516,Bengal Tiger,3,2024-06-10,High,Forest,Team B,Increased activity near village
+17.386,78.486,Sambar Deer,31,2024-06-15,Low,Forest,Team C,Normal movement patterns
+17.394,78.494,Indian Leopard,4,2024-06-20,High,Forest,Team A,Conflict with livestock reported
+17.374,78.474,Indian Elephant,13,2024-06-25,Medium,Wetland,Team B,Monsoon migration started
